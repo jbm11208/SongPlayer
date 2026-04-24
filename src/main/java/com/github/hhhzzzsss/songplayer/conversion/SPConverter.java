@@ -51,7 +51,7 @@ public class SPConverter {
         long time = 0;
         while (true) {
             int noteId = buffer.getShort();
-            if (noteId >= 0 && noteId < 400) {
+            if (noteId >= 0 && noteId < 500) {
                 time += getVarLong(buffer);
                 song.add(new Note(noteId, time));
             }

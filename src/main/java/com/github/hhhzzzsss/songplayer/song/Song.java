@@ -7,7 +7,7 @@ public class Song {
 	public ArrayList<Note> notes = new ArrayList<>();
 	public String name;
 	public int position = 0; // Current note index
-	public boolean[] requiredNotes = new boolean[400];
+	public boolean[] requiredNotes = new boolean[500];
 	public boolean looping = false;
 	public boolean paused = true;
 	public long startTime = 0; // Start time in millis since unix epoch

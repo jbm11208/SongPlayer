@@ -5,37 +5,36 @@ import com.github.hhhzzzsss.songplayer.playing.SongHandler;
 import com.github.hhhzzzsss.songplayer.playing.Stage;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.PropertyMap;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.OtherClientPlayerEntity;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.player.PlayerEntity;
-
 import java.util.UUID;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.player.RemotePlayer;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.player.Player;
 
-public class FakePlayerEntity extends OtherClientPlayerEntity {
+public class FakePlayerEntity extends RemotePlayer {
 	public static final UUID FAKE_PLAYER_UUID = UUID.randomUUID();
 
-	ClientPlayerEntity player = SongPlayer.MC.player;
-	ClientWorld world = SongPlayer.MC.world;
+	LocalPlayer player = SongPlayer.MC.player;
+	ClientLevel world = SongPlayer.MC.level;
 	
 	public FakePlayerEntity() {
-		super(SongPlayer.MC.world, getProfile());
+		super(SongPlayer.MC.level, createProfile());
 		
 		copyStagePosAndPlayerLook();
 		
-		getInventory().clone(player.getInventory());
+		getInventory().replaceWith(player.getInventory());
 		
-		Byte playerModel = player.getDataTracker().get(PlayerEntity.PLAYER_MODE_CUSTOMIZATION_ID);
-		getDataTracker().set(PlayerEntity.PLAYER_MODE_CUSTOMIZATION_ID, playerModel);
+		Byte playerModel = player.getEntityData().get(Player.DATA_PLAYER_MODE_CUSTOMISATION);
+		getEntityData().set(Player.DATA_PLAYER_MODE_CUSTOMISATION, playerModel);
 		
-		headYaw = player.headYaw;
-		bodyYaw = player.bodyYaw;
+		yHeadRot = player.yHeadRot;
+		yBodyRot = player.yBodyRot;
 
-		if (player.isSneaking()) {
-			setSneaking(true);
-			setPose(EntityPose.CROUCHING);
+		if (player.isShiftKeyDown()) {
+			setShiftKeyDown(true);
+			setPose(Pose.CROUCHING);
 		}
 
 //		capeX = getX();
@@ -46,28 +45,28 @@ public class FakePlayerEntity extends OtherClientPlayerEntity {
 	}
 	
 	public void resetPlayerPosition() {
-		player.refreshPositionAndAngles(getX(), getY(), getZ(), getYaw(), getPitch());
+		player.snapTo(getX(), getY(), getZ(), getYRot(), getXRot());
 	}
 	
 	public void copyStagePosAndPlayerLook() {
 		Stage lastStage = SongHandler.getInstance().lastStage;
 		if (lastStage != null) {
-			refreshPositionAndAngles(lastStage.position.getX()+0.5, lastStage.position.getY(), lastStage.position.getZ()+0.5, player.getYaw(), player.getPitch());
-			headYaw = player.headYaw;
+			snapTo(lastStage.position.getX()+0.5, lastStage.position.getY(), lastStage.position.getZ()+0.5, player.getYRot(), player.getXRot());
+			yHeadRot = player.yHeadRot;
 		}
 		else {
-			copyPositionAndRotation(player);
+			copyPosition(player);
 		}
 	}
 
-	private static GameProfile getProfile() {
+	private static GameProfile createProfile() {
 		GameProfile profile = new GameProfile(
 				FAKE_PLAYER_UUID,
 				SongPlayer.MC.player.getGameProfile().name(),
 				SongPlayer.MC.getGameProfile().properties()
 		);
-		PlayerListEntry playerListEntry = new PlayerListEntry(SongPlayer.MC.player.getGameProfile(), false);
-		((ClientPlayNetworkHandlerAccessor)SongPlayer.MC.getNetworkHandler()).getPlayerListEntries().put(FAKE_PLAYER_UUID, playerListEntry);
+		PlayerInfo playerListEntry = new PlayerInfo(SongPlayer.MC.player.getGameProfile(), false);
+		((ClientPlayNetworkHandlerAccessor)SongPlayer.MC.getConnection()).getPlayerInfoMap().put(FAKE_PLAYER_UUID, playerListEntry);
 		return profile;
 	}
 }

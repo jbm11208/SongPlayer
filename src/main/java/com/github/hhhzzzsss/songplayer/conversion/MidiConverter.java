@@ -149,7 +149,7 @@ public class MidiConverter {
 		if (instrumentList != null) {
 			for (com.github.hhhzzzsss.songplayer.song.Instrument candidateInstrument : instrumentList) {
 				if (midiPitch >= candidateInstrument.offset && midiPitch <= candidateInstrument.offset+24) {
-					instrument = candidateInstrument;
+                    instrument = candidateInstrument;
 					break;
 				}
 			}
@@ -249,14 +249,14 @@ public class MidiConverter {
 		instrumentMap.put(55, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.HARP, com.github.hhhzzzsss.songplayer.song.Instrument.BASS, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Orchestra Hit
 
 		// Brass
-		instrumentMap.put(56, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
-		instrumentMap.put(57, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
-		instrumentMap.put(58, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
-		instrumentMap.put(59, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
-		instrumentMap.put(60, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
-		instrumentMap.put(61, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
-		instrumentMap.put(62, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
-		instrumentMap.put(63, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});
+		instrumentMap.put(56, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Trumpet
+		instrumentMap.put(57, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Trombone
+		instrumentMap.put(58, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_OXIDIZED, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Tuba
+		instrumentMap.put(59, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Muted Trumpet
+		instrumentMap.put(60, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // French Horn
+		instrumentMap.put(61, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Brass Section
+		instrumentMap.put(62, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_EXPOSED, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Synth Brass 1
+		instrumentMap.put(63, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_EXPOSED, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET, com.github.hhhzzzsss.songplayer.song.Instrument.TRUMPET_WEATHERED, com.github.hhhzzzsss.songplayer.song.Instrument.BIT, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.BELL}); // Synth Brass 2
 
 		// Reed
 		instrumentMap.put(64, new com.github.hhhzzzsss.songplayer.song.Instrument[]{com.github.hhhzzzsss.songplayer.song.Instrument.FLUTE, com.github.hhhzzzsss.songplayer.song.Instrument.DIDGERIDOO, com.github.hhhzzzsss.songplayer.song.Instrument.IRON_XYLOPHONE, com.github.hhhzzzsss.songplayer.song.Instrument.BELL});

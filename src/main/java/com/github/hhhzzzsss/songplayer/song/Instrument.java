@@ -16,7 +16,11 @@ public enum Instrument {
 	DIDGERIDOO(12, 30, "Pumpkin"),
 	BIT(13, 54, "Block of Emerald"),
 	BANJO(14, 54, "Hay Bale"),
-	PLING(15, 54, "Glowstone");
+	PLING(15, 54, "Glowstone"),
+	TRUMPET(16, 54, "Block of Copper"),
+	TRUMPET_EXPOSED(17, 54, "Exposed Copper"),
+	TRUMPET_WEATHERED(19, 42, "Weathered Copper"),
+	TRUMPET_OXIDIZED(18, 42, "Oxidized Copper");
 	
 	public final int instrumentId;
 	public final int offset;
