@@ -6,6 +6,7 @@ import com.github.hhhzzzsss.songplayer.playing.Stage;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.PropertyMap;
 import java.util.UUID;
+import java.util.Random;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.LocalPlayer;
@@ -15,12 +16,14 @@ import net.minecraft.world.entity.player.Player;
 
 public class FakePlayerEntity extends RemotePlayer {
 	public static final UUID FAKE_PLAYER_UUID = UUID.randomUUID();
+    public static final Random ENTITY_ID_GENERATOR = new Random();
 
 	LocalPlayer player = SongPlayer.MC.player;
 	ClientLevel world = SongPlayer.MC.level;
 	
 	public FakePlayerEntity() {
 		super(SongPlayer.MC.level, createProfile());
+        setId(ENTITY_ID_GENERATOR.nextInt());
 		
 		copyStagePosAndPlayerLook();
 		

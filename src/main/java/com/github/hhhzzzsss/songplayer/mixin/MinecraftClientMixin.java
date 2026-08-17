@@ -70,7 +70,7 @@ public class MinecraftClientMixin {
 		ItemStack stack = SongPlayer.MC.player.getItemInHand(InteractionHand.MAIN_HAND);
 		if (SongItemUtils.isSongItem(stack)) {
 			try {
-				SongPlayer.MC.setScreen(new SongItemConfirmationScreen(stack));
+				SongPlayer.MC.gui.setScreen(new SongItemConfirmationScreen(stack));
 			} catch (Exception e) {
 				Util.showChatMessage("§cFailed to load song item: §4" + e.getMessage());
 			}

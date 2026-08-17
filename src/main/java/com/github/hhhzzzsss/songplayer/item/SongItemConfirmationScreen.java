@@ -40,11 +40,11 @@ public class SongItemConfirmationScreen extends Screen {
 
         this.addRenderableWidget(Button.builder(CONFIRM, button -> {
             SongHandler.getInstance().loadSong(loaderThread);
-            this.minecraft.setScreen(null);
+            this.minecraft.gui.setScreen(null);
         }).bounds(centerX - 105, y, 100, 20).build());
 
         this.addRenderableWidget(Button.builder(CANCEL, button -> {
-            this.minecraft.setScreen(null);
+            this.minecraft.gui.setScreen(null);
         }).bounds(centerX + 5, y, 100, 20).build());
     }
 
@@ -57,7 +57,7 @@ public class SongItemConfirmationScreen extends Screen {
         if (!loaderThread.isAlive()) {
             if (loaderThread.exception != null) {
                 Util.showChatMessage("§cError loading song item: §4" + loaderThread.exception.getMessage());
-                this.minecraft.setScreen(null);
+                this.minecraft.gui.setScreen(null);
                 return;
             }
             else if (loadedText == null) {

@@ -6,7 +6,8 @@
   "name": "Song Player",
   "description": "A mod for building and playing noteblock songs in Minecraft",
   "authors": [
-    "hhhzzzsss"
+    "hhhzzzsss",
+    "jbm11208"
   ],
   "contact": {
     "sources": "https://github.com/hhhzzzsss/SongPlayer"
@@ -27,7 +28,7 @@
 
   "depends": {
     "fabricloader": ">=0.18.0",
-    "minecraft": "~26.1",
+    "minecraft": "~26.2",
     "java": ">=25"
   },
   "suggests": {
