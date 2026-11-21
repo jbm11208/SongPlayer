@@ -7,12 +7,14 @@ import com.github.hhhzzzsss.songplayer.playing.Stage;
 import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ServerboundClientTickEndPacket;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
 import net.minecraft.network.protocol.game.ServerboundPlayerInputPacket;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Input;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -26,14 +28,26 @@ public class ClientCommonNetworkHandlerMixin {
         connection = null;
     }
 
+    @Unique
+    private boolean sentPositionThisTick = false;
+    private boolean justFinishedPlaying = false;
+
     @Inject(at = @At("HEAD"), method = "send(Lnet/minecraft/network/protocol/Packet;)V", cancellable = true)
     private void onSendPacket(Packet<?> packet, CallbackInfo ci) {
+        if (packet instanceof ServerboundClientTickEndPacket) {
+            this.sentPositionThisTick = false;
+            return;
+        }
         SongHandler songHandler = SongHandler.getInstance();
         Stage lastStage = songHandler.lastStage;
 
         if (!songHandler.isIdle() && packet instanceof ServerboundMovePlayerPacket) {
+            if (!justFinishedPlaying) {
+                justFinishedPlaying = true;
+            }
             if (lastStage != null) {
-                if (!Config.getConfig().rotate) { // Only copy player rotation if rotate is not enabled
+                if (!this.sentPositionThisTick) { // Only copy player rotation if rotate is not enabled
+                    this.sentPositionThisTick = true;
                     connection.send(new ServerboundMovePlayerPacket.PosRot(
                             lastStage.position.getX() + 0.5, lastStage.position.getY(), lastStage.position.getZ() + 0.5,
                             SongPlayer.MC.player.getYRot(), SongPlayer.MC.player.getXRot(),
@@ -44,6 +58,12 @@ public class ClientCommonNetworkHandlerMixin {
                 }
             }
             ci.cancel(); // Default movement packet is always cancelled if song is playing
+        }
+        else if (packet instanceof ServerboundMovePlayerPacket && songHandler.isIdle()) {
+            if (justFinishedPlaying) {
+                ci.cancel();
+                justFinishedPlaying = false;
+            }
         }
         else if (packet instanceof ServerboundPlayerInputPacket) {
             // Update fakePlayer crouching

@@ -7,6 +7,7 @@ import com.github.hhhzzzsss.songplayer.Util;
 import com.github.hhhzzzsss.songplayer.mixin.ClientPlayerInteractionManagerAccessor;
 import com.github.hhhzzzsss.songplayer.song.*;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.component.SwingAnimation;
 //import net.minecraft.block.*;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
@@ -875,17 +876,16 @@ public class SongHandler {
                 fakePlayer.setYHeadRot(yaw);
             }
             // Send on ClientConnection instead of networkHandler because mixin overrides sendPacket on networkHandler
-            SongPlayer.MC.player.connection.getConnection().send(new ServerboundMovePlayerPacket.PosRot(
-                    lastStage.position.getX() + 0.5, lastStage.position.getY(), lastStage.position.getZ() + 0.5,
+            SongPlayer.MC.player.connection.getConnection().send(new ServerboundMovePlayerPacket.Rot(
                     yaw, pitch,
                     true, false));
         }
     }
     private void doSwingIfNeeded() {
         if (Config.getConfig().swing) {
-            SongPlayer.MC.player.swing(InteractionHand.MAIN_HAND);
+            SongPlayer.MC.player.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
             if (fakePlayer != null) {
-                fakePlayer.swing(InteractionHand.MAIN_HAND);
+                fakePlayer.swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
             }
         }
     }
