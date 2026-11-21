@@ -840,10 +840,9 @@ public class SongHandler {
         );
     }
     private boolean isPlaceable(BlockState bs) {
-        Map<Property<?>, Comparable<?>> entries = (Map<Property<?>, Comparable<?>>) bs.getValues();
-        for (Map.Entry<Property<?>, Comparable<?>> entry : entries.entrySet()) {
-            Property<?> property = entry.getKey();
-            Comparable<?> value = entry.getValue();
+        for (Property.Value<?> entry : bs.getValues().toList()) {
+            Property<?> property = entry.property();
+            Comparable<?> value = entry.value();
             String propertyName = property.getName();
             String valueName = net.minecraft.util.Util.getPropertyName(property, value);
             if (propertyName.equals("half") && valueName.equals("upper")) {
